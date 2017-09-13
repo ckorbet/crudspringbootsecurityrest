@@ -3,6 +3,8 @@ package crudspringbootsecurityrest.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,15 @@ public class CRUDEmployeeController {
 	private EmployeeBusinessService businessService;	
 	
 	@RequestMapping(value = "/employee/createDefaultEmployee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Map<String, String> createDefaultEmployee() {
+    public final Map<String, Object> createDefaultEmployee() {
         LOGGER.info("Request received to create Empoyee");
-        Map<String, String> response = null;
+        Map<String, Object> response = null;
         try {
             final Employee employee = businessService.createEmployee("Carlos", "Torres", true);
             LOGGER.info("Employee created: " + employee.toString());
             response = new HashMap<>();
-            response.put("STATUS:SUCESS", employee.toString());            
+            response.put("STATUS", "SUCCESS");
+            response.put("EMPLOYEE", employee);
         } catch (final Exception excp) {
             LOGGER.error("Request failed", excp);
             response.put("STATUS:FAILED", "FAILED: Employee not created");

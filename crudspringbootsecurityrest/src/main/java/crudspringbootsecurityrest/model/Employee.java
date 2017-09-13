@@ -1,5 +1,8 @@
 package crudspringbootsecurityrest.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -134,9 +137,8 @@ public class Employee {
 	}
 
 	@Override
-	public String toString() {
-		final StringBuilder res = 
-				new StringBuilder("Employee [id=").append(id)
+	public final String toString() {
+		final StringBuilder res = new StringBuilder("Employee [id=").append(id)
 		.append(", name=").append(name)
 		.append(", lastName=").append(lastName)
 		.append(", active=").append(active);
@@ -146,4 +148,17 @@ public class Employee {
 		res.append("]");
 		return res.toString();
 	}
+	
+	public final Map<String, String> toMap() {
+		Map<String, String> resMap = new HashMap<>();
+		resMap.put("id", String.valueOf(this.id));
+		resMap.put("name", this.name);
+		resMap.put("lastName", this.lastName);
+		resMap.put("active", String.valueOf(this.active));
+		if(this.department !=null) {
+			resMap.put("depId", String.valueOf(this.department.getId()));
+		}
+		return resMap;
+	}
+	
 }
