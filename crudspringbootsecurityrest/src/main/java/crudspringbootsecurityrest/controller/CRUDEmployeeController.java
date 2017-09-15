@@ -3,11 +3,10 @@ package crudspringbootsecurityrest.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +23,15 @@ public class CRUDEmployeeController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CRUDEmployeeController.class);
 	
+	@Value("${url.value.default.employee}")
+	private String URL_FROM_PROPS;
+	
+	private static final String URL_VALUE_DEFAULT_EMPLOYEE = "/employee/createDefaultEmployee";
+	
 	@Autowired
 	private EmployeeBusinessService businessService;	
 	
-	@RequestMapping(value = "/employee/createDefaultEmployee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = CRUDEmployeeController.URL_VALUE_DEFAULT_EMPLOYEE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Map<String, Object> createDefaultEmployee() {
         LOGGER.info("Request received to create Empoyee");
         Map<String, Object> response = null;
