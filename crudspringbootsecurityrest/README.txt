@@ -7,3 +7,5 @@ Flyway
 Dozer
 Selma
 MapStruc
+
+Added a small change jsut to check that OpenShift automatically starts the build.
